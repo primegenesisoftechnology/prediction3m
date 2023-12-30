@@ -6,7 +6,6 @@ import websocket
 import json
 import joblib
 import numpy as np
-import gzip
 app = Flask(__name__)
 socketio = SocketIO(app, cors_allowed_origins="*")
 kline_data_3m=None
@@ -37,6 +36,7 @@ def Live_stream():
         websocket_url = 'wss://stream.binance.com:9443/ws/' + symbol + '@kline_' + interval
         ws_app = websocket.WebSocketApp(websocket_url, on_open=on_open, on_message=on_message, on_error=on_error, on_close=on_close)
         ws_app.run_forever()
+        print(kline_data_3m)
         while True:
             socketio.emit('data_3m', {'message': kline_data_3m})
             # time.sleep(1)               
