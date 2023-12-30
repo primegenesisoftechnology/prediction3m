@@ -1,5 +1,5 @@
 from sklearn import linear_model
-import pickle
+import joblib
 import numpy as np
 import pandas as pd
 from sklearn.neighbors import KNeighborsRegressor
@@ -16,7 +16,7 @@ import gzip
 from xgboost import XGBRegressor
 from xgboost import XGBRFRegressor
 
-df = pd.read_csv("BTCDATA.csv")
+df = pd.read_csv("BTC_15Minute.csv")
 warnings.filterwarnings("ignore", category=UserWarning)
 # take a look at the dataset
 #df.head()
@@ -35,7 +35,7 @@ reg.fit(x, y)
 
 # Saving model to disk
 # Pickle serializes objects so they can be saved to a file, and loaded in a program again later on.
-# joblib.dump(reg, 'Model_5m.pkl')
-pickle.dump(reg, gzip.open('model_gzip_1m.pkl', 'wb'))
+joblib.dump(reg, 'Model_15m.joblib')
+# pickle.dump(reg, open('model_gzip_1m.pkl', 'wb'))
 #model = pickle.load(open('model.pkl','rb'))
 #print(model.predict([[2.6, 8, 10.1]]))
